@@ -3,3 +3,4 @@
 *.tar
 *.gz
 *.whl
+.vscode/settings.json
