@@ -13,7 +13,7 @@ This proposed approach achieves a highly explainable and interpretable wave sele
 
 You can install the latest version of the `prominence-delineator` package from the Python Package Index (PyPI) by running:
 ```
-    pip install prominence-delineator
+pip install prominence-delineator
 ```
 
 ## Usage
