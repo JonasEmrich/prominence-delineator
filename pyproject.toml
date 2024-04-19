@@ -1,0 +1,37 @@
+[build-system]
+requires = ["setuptools >= 61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "prominence-delineator"
+version = "0.0.1"
+dependencies = [
+  "numpy",
+  "scipy",
+]
+requires-python = ">=3.8"
+authors = [
+    {name="Jonas Emrich", email="mail@jonasemrich.de"}
+]
+maintainers = [
+    {name="Jonas Emrich", email="mail@jonasemrich.de"}
+]
+description = "Physiology-Informed ECG Delineator Based on Peak Prominence"
+readme = "README.md"
+license.file = "LICENSE"
+keywords = ["delineation", "delineator", "ecg", "cardiovascular", "waves detection", "waves", "detector", "prominence"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+    "Operating System :: OS Independent",
+    "Intended Audience :: Science/Research",
+]
+
+[project.optional-dependencies]
+rpeak = ["vg-beat-detectors"]
+cleaning = ["neurokit2"]
+all = ["prominence-delineator[rpeak,cleaning]"]
+
+[project.urls]
+"Homepage" = "https://jonasemrich.de"
+"Source Code" = "https://github.com/JonasEmrich/prominence-delineator"
