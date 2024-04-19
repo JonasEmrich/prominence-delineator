@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "prominence-delineator"
-version = "0.0.1"
+version = "0.0.4"
 dependencies = [
   "numpy",
   "scipy",
@@ -30,7 +30,8 @@ classifiers = [
 [project.optional-dependencies]
 rpeak = ["vg-beat-detectors"]
 cleaning = ["neurokit2"]
-all = ["prominence-delineator[rpeak,cleaning]"]
+example = ["matplotlib", "wfdb"]
+all = ["prominence-delineator[rpeak,cleaning,example]"]
 
 [project.urls]
 "Homepage" = "https://jonasemrich.de"
