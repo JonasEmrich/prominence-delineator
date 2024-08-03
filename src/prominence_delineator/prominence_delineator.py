@@ -148,7 +148,8 @@ class ProminenceDelineator:
             result = self.find_waves(lead, rpeaks=waves["R"][l])
             # append result for lead
             for wave in waves.keys():
-                waves[wave].append(result[wave])
+                if wave in result and wave != "R": # R peaks are already appended
+                    waves[wave].append(result[wave])
 
         # correct multi-lead predictions
         if multilead_correction:
