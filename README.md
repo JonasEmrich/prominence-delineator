@@ -16,9 +16,12 @@ You can install the latest version of the `prominence-delineator` package from t
 pip install prominence-delineator
 ```
 
-## Usage
+## Complete Working Example
 
 A complete working example is provided in [example.ipynb](https://github.com/JonasEmrich/prominence-delineator/blob/main/example/example.ipynb), additionally the basic usage is depicted below.
+
+## Basic Usage
+
 The ProminenceDelineator takes the `sampling_frequency` and optionally several physiological parameters as input.
 Then, R-peaks can be detected using any reliable R-peak detector or with the integrated method (applying the `FastNVG` \[2\] approach). Before detecting further waves, the required ECG cleaning can easily be performed by using `.clean_ecg(ecg)`.
 Finally, morphology waves can be detected using `.find_waves()` or `.find_waves_multilead()` for single or multi-lead ECG signals, respectively. 
@@ -39,7 +42,7 @@ ecg = PromDelineator.clean_ecg(ecg)
 waves = PromDelineator.find_waves(ecg, rpeaks=rpeaks)
 ```
 
-![Delineated ECG](https://github.com/JonasEmrich/prominence-delineator/blob/main/img/plot.png)
+![Delineated ECG](https://github.com/JonasEmrich/prominence-delineator/blob/main/img/plot.png?raw=true)
 
 ### Multi-Lead ECG Delineation
 ``` python
