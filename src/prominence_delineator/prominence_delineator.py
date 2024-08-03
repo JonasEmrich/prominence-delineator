@@ -344,6 +344,13 @@ class ProminenceDelineator:
         self, predictions, tol, accept_forall_factor=2 / 3, accept_factor=1 / 3
     ):
         """Corrects the multi-leads predictions based on a tolerance value."""
+
+        if not (0 <= accept_forall_factor <= 1):
+            raise ValueError("The acceptance factor must be between 0 and 1, as it represents the percentage of leads in which a detection must occur to be introduced into all leads.")
+
+        if not (0 <= accept_factor <= 1):
+            raise ValueError("The acceptance factor must be between 0 and 1, as it represents the percentage of leads in which a detection must occur to be retained in the lead where it was found.")
+
         predictions = [np.array(lead).flatten() for lead in predictions]
 
         corr_predictions = [[] for lead in predictions]
