@@ -83,6 +83,7 @@ class ProminenceDelineator:
         tol=0.15,
         accept_forall_factor=2 / 3,
         accept_factor=1 / 3,
+        include_nodetections=False
     ):
         """Delineate ECG waves in multiple leads of a provided ECG signal.
 
@@ -95,14 +96,17 @@ class ProminenceDelineator:
         multilead_correction : bool, optional
             If True, the detected waves will be corrected based on the detection from the other leads. Defaults to
             False.
+        tol : float, optional
+            Tolerance factor for correcting wave positions (in seconds). Defaults to 0.15.
         accept_forall_factor : float, optional
             The minimum proportion of leads in which a wave needs to be detected, so that its corrected position is
             introduced in the remaining leads. Only has an effect if 'multilead_correction' is True. Defaults to 2/3.
         accept_factor : float, optional
             The minimum proportion of leads in which a wave needs to be detected so that it will not be discarded. Only
             has an effect if 'multilead_correction' is True. Defaults to 1/3.
-        tol : float, optional
-            Tolerance factor for correcting wave positions (in seconds). Defaults to 0.15.
+        include_nodetections : bool, optional
+            If True, the output will include `None` when no wave is found in the current beat/complex.
+            This results in equally sized arrays for each wave. Defaults to False.
 
         Returns
         -------
@@ -130,7 +134,6 @@ class ProminenceDelineator:
             raise ValueError(
                 "Invalid format for 'rpeaks_multilead'. It should be a list of multiple arrays or lists."
             )
-
         waves = {
             "P": [],
             "R": rpeaks_multilead,
@@ -145,7 +148,7 @@ class ProminenceDelineator:
 
         # process all leads
         for l, lead in enumerate(sig_multilead):
-            result = self.find_waves(lead, rpeaks=waves["R"][l])
+            result = self.find_waves(lead, rpeaks=waves["R"][l], include_nodetections=include_nodetections)
             # append result for lead
             for wave in waves.keys():
                 if wave in result and wave != "R": # R peaks are already appended
@@ -163,7 +166,7 @@ class ProminenceDelineator:
 
         return waves
 
-    def find_waves(self, sig, rpeaks):
+    def find_waves(self, sig, rpeaks, include_nodetections=False):
         """Delineate ECG waves for the given single lead ECG signal.
 
         Args
@@ -172,6 +175,9 @@ class ProminenceDelineator:
             The input signal representing a single unfiltered ECG lead.
         rpeaks : ndarray
             The R-peak positions of the signal.
+        include_nodetections : bool, optional
+            If True, the output will include `None` when no wave is found in the current beat/complex.
+            This results in equally sized arrays for each wave. Defaults to False.
 
         Returns
         -------
@@ -236,12 +242,17 @@ class ProminenceDelineator:
 
             # append waves
             for key in waves:
-                waves[key].append(current_wave[key] + l)
-        waves["R"] = rpeaks
+                if key == "R":
+                    waves[key].append(int(rpeaks[i]))
+                elif key in current_wave:
+                    waves[key].append(int(current_wave[key] + l))
+                elif include_nodetections:
+                    waves[key].append(None)
 
         # cast into np.array int
-        for key in waves:
-            waves[key] = np.array(waves[key], dtype=int)
+        if not include_nodetections:
+            for key in waves:
+                waves[key] = np.array(waves[key], dtype=int)
 
         return waves
 
