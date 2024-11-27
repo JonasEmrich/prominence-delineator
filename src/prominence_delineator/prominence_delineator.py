@@ -383,7 +383,6 @@ class ProminenceDelineator:
         l = peak - int(window * self.fs)
         r = peak + int(window * self.fs)
         if len(sig[l:r]) > 0:
-            peaks, _ = scipy.signal.find_peaks(sig[l:r])
             return np.argmax(sig[l:r]) + l
         else:
             return peak
