@@ -136,7 +136,9 @@ class ProminenceDelineator:
             )
         waves = {
             "P": [],
+            "Q": [],
             "R": rpeaks_multilead,
+            "S": [],
             "T": [],
             "P_on": [],
             "P_off": [],
@@ -191,7 +193,9 @@ class ProminenceDelineator:
 
         waves = {
             "P": [],
+            "Q": [],
             "R": [],
+            "S": [],
             "T": [],
             "P_on": [],
             "P_off": [],
