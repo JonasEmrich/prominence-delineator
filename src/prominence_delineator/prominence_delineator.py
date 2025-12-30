@@ -183,8 +183,9 @@ class ProminenceDelineator:
 
         Returns
         -------
-        dict: A dictionary of ndarrays containing the indices of the detected waves. The keys are 'P', 'R', 'T',
-        'P_on', 'P_off', 'R_on', 'R_off', 'T_on', 'T_off'.
+        dict: A dictionary containing the detected waves in each lead. The keys represent the wave types ('P', 'Q',
+        'R', 'S', 'T', 'P_on', 'P_off', 'R_on', 'R_off', 'T_on', 'T_off') and each value is a lists containing
+        predicted wave positions (as a list) for each lead.
 
         """
 
