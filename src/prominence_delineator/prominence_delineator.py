@@ -26,6 +26,15 @@ class ProminenceDelineator:
     Based on Peak Prominence", 32nd European Signal Processing Conference (EUSIPCO), 2024
     [2] J. Emrich, T. Koka, S. Wirth, M. Muma, "Accelerated Sample-Accurate R-peak Detectors Based on
     Visibility Graphs", 31st European Signal Processing Conference (EUSIPCO), 2023
+    
+    Notes
+    -----
+    **QRS onset/offset Limitations**: The prominence-based R onset/offset detection 
+    may not bracket the complete QRS complex. Unlike physiological QRS boundaries 
+    (defined by Q and S waves), this method uses prominence windows around the R peak 
+    that may not extend to Q onset and S offsets. Using R onset and R offset as estimates for 
+    QRS onset and QRS offset is exploratory functionality and should be validated for 
+    critical applications.
 
     """
 
@@ -136,7 +145,9 @@ class ProminenceDelineator:
             )
         waves = {
             "P": [],
+            "Q": [],
             "R": rpeaks_multilead,
+            "S": [],
             "T": [],
             "P_on": [],
             "P_off": [],
@@ -181,8 +192,9 @@ class ProminenceDelineator:
 
         Returns
         -------
-        dict: A dictionary of ndarrays containing the indices of the detected waves. The keys are 'P', 'R', 'T',
-        'P_on', 'P_off', 'R_on', 'R_off', 'T_on', 'T_off'.
+        dict: A dictionary containing the detected waves in each lead. The keys represent the wave types ('P', 'Q',
+        'R', 'S', 'T', 'P_on', 'P_off', 'R_on', 'R_off', 'T_on', 'T_off') and each value is a lists containing
+        predicted wave positions (as a list) for each lead.
 
         """
 
@@ -191,7 +203,9 @@ class ProminenceDelineator:
 
         waves = {
             "P": [],
+            "Q": [],
             "R": [],
+            "S": [],
             "T": [],
             "P_on": [],
             "P_off": [],
