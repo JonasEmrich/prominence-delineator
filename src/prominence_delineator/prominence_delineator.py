@@ -26,6 +26,15 @@ class ProminenceDelineator:
     Based on Peak Prominence", 32nd European Signal Processing Conference (EUSIPCO), 2024
     [2] J. Emrich, T. Koka, S. Wirth, M. Muma, "Accelerated Sample-Accurate R-peak Detectors Based on
     Visibility Graphs", 31st European Signal Processing Conference (EUSIPCO), 2023
+    
+    Notes
+    -----
+    **QRS onset/offset Limitations**: The prominence-based R onset/offset detection 
+    may not bracket the complete QRS complex. Unlike physiological QRS boundaries 
+    (defined by Q and S waves), this method uses prominence windows around the R peak 
+    that may not extend to Q onset and S offsets. Using R onset and R offset as estimates for 
+    QRS onset and QRS offset is exploratory functionality and should be validated for 
+    critical applications.
 
     """
 
