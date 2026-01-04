@@ -2,12 +2,12 @@
 
 This Python package implements the Peak Prominence ECG Delineator \[1\] and provides methods for ECG cleaning and R-peak detection \[2\], resulting in a complete delineation pipeline. This delineator allows for fast and precise detection of the positions, on- and offsets of morphology waves (e.g., _P_, _R_, _T_) in single or multi-lead ECG signals. An optional multi-lead correction procedure can be applied, leveraging information from all leads if available. 
 
-## Advantages and Limits
+## Advantages and Limitations
 This proposed approach achieves a highly explainable and interpretable wave selection by leveraging prominence information. Hence, wave detection only depends on physiologically motivated parameters chosen so that morphologies of interest are well represented and portrayed, yielding high $F_1$-scores and low errors on established Datasets in comparison to competing methods \[1\]. 
 
-**NOTE:** This approach allows for further customization w.r.t to these parameters so that different parameter choices or other physiologically informed decision rules might result in higher performance or robustness regarding certain morphologies and heartbeat types. Even though, the utilized approach for on- and offset detection yielded great performance it is constrained by typical physiological boundaries. Developing novel prominence computation methods to robustly identify basepoints might therefore yield further improvements. 
+**NOTE:** This approach allows for further customization w.r.t to these parameters so that different parameter choices or other physiologically informed decision rules might result in higher performance or robustness regarding certain morphologies and heartbeat types. Even though the utilized approach for on- and offset detection yielded great performance, it is constrained by typical physiological boundaries. Developing novel prominence computation methods to robustly identify basepoints might therefore yield further improvements. 
 
-
+**Limitation on QRS onset/offset**: The prominence-based R onset/offset detection may not bracket the complete QRS complex, as the prominence windows around the R peak often don't extend completely to Q/S wave boundaries. Using R onset/R offset as QRS onset/offset estimates is exploratory and should be validated for critical applications. The method is optimized for P and T wave delineation.
 
 ## Installation
 
